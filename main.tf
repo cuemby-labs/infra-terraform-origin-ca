@@ -13,13 +13,14 @@ module "submodule" {
 #
 
 data "kubernetes_namespace" "existing" {
+  for_each = try([var.namespace_name], [])
   metadata {
-    name = var.namespace_name
+    name = each.value
   }
 }
 
 resource "kubernetes_namespace" "this" {
-  count = length(data.kubernetes_namespace.existing.items) == 0 ? 1 : 0
+  count = length(data.kubernetes_namespace.existing) == 0 ? 1 : 0
 
   metadata {
     name = var.namespace_name
