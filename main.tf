@@ -25,7 +25,7 @@ resource "helm_release" "origin_ca_issuer" {
   version    = var.helm_chart_version
   namespace  = var.namespace_name
 
-  values     = [file("${path.module}/values.yaml")]
+  # values     = [file("${path.module}/values.yaml")]
 
   # set {
   #   name  = "certmanager.namespace"
