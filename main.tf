@@ -12,7 +12,7 @@ module "submodule" {
 # Origin CA Issuer 
 #
 
-resource "kubernetes_namespace" "origin_ca_issuer" {
+resource "kubernetes_namespace" "this" {
   metadata {
     name = var.namespace_name
   }
@@ -23,7 +23,7 @@ resource "kubernetes_namespace" "origin_ca_issuer" {
   }
 }
 
-resource "helm_release" "origin_ca_issuer" {
+resource "helm_release" "this" {
   name       = var.helm_release_name
   repository = "oci://ghcr.io/cloudflare/origin-ca-issuer-charts/"
   chart      = "origin-ca-issuer"
