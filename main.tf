@@ -18,7 +18,7 @@ resource "kubernetes_namespace" "this" {
   }
   lifecycle {
     ignore_changes = [
-      metadata[0].name
+      metadata.name
     ]
   }
 }
