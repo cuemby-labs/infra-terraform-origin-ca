@@ -12,14 +12,17 @@ module "submodule" {
 # Origin CA Issuer 
 #
 
-resource "kubernetes_namespace" "this" {
+data "kubernetes_namespace" "existing" {
   metadata {
     name = var.namespace_name
   }
-  lifecycle {
-    ignore_changes = [
-      metadata.name
-    ]
+}
+
+resource "kubernetes_namespace" "this" {
+  count = length(data.kubernetes_namespace.existing.items) == 0 ? 1 : 0
+
+  metadata {
+    name = var.namespace_name
   }
 }
 
