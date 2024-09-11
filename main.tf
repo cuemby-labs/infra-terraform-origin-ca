@@ -12,14 +12,23 @@ module "submodule" {
 # Origin CA Issuer 
 #
 
-data "kubernetes_namespace" "existing" {
+resource "kubernetes_namespace" "this" {
+  count = length(
+    try(
+      [for ns in data.kubernetes_namespace.existing.namespaces : ns.metadata.name if ns.metadata.name == var.namespace_name],
+      []
+    )
+  ) == 0 ? 1 : 0
+
   metadata {
     name = var.namespace_name
   }
 }
 
-resource "kubernetes_namespace" "this" {
-  count = length(data.kubernetes_namespace.existing) == 0 ? 0 : 1
+data "kubernetes_namespace" "existing" {
+  for_each = {
+    for ns in kubernetes_namespace.this : ns.metadata.name => ns
+  }
 
   metadata {
     name = var.namespace_name
