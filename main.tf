@@ -16,6 +16,11 @@ resource "kubernetes_namespace" "origin_ca_issuer" {
   metadata {
     name = var.namespace_name
   }
+  lifecycle {
+    ignore_changes = [
+      metadata[0].name
+    ]
+  }
 }
 
 resource "helm_release" "origin_ca_issuer" {
