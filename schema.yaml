@@ -1,10 +1,37 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for template walrus-template-template
+  title: OpenAPI schema for template infra-terraform-origin-ca
 components:
   schemas:
     variables:
       type: object
+      required:
+      - namespace_name
+      properties:
+        namespace_name:
+          title: Namespace Name
+          type: string
+          description: The namespace where resources will be created, it have to be
+            the same as cert-manager.
+          x-walrus-ui:
+            group: Basic
+            order: 2
+        helm_release_name:
+          title: Helm Release Name
+          type: string
+          description: The name of the Helm release.
+          default: origin-ca-issuer
+          x-walrus-ui:
+            group: Basic
+            order: 3
+        helm_chart_version:
+          title: Helm Chart Version
+          type: string
+          description: The version of the Helm chart.
+          default: 0.5.5
+          x-walrus-ui:
+            group: Basic
+            order: 4
       x-walrus-ui:
         groupOrder:
         - Basic
