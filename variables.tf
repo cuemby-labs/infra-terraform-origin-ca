@@ -1,5 +1,5 @@
 #
-# CRDs variables
+# CRDs Variables
 #
 
 variable "crds_version" {
@@ -9,7 +9,7 @@ variable "crds_version" {
 }
 
 #
-# External DNS variables
+# External DNS Variables
 #
 
 variable "namespace_name" {
@@ -27,4 +27,30 @@ variable "helm_chart_version" {
   description = "The version of the Helm chart."
   type        = string
   default     = "0.5.5"
+}
+
+#
+# Walrus Contextual Fields Variable
+#
+
+variable "context" {
+  description = <<-EOF
+Receive contextual information. When Walrus deploys, Walrus will inject specific contextual information into this field.
+
+Examples:
+```
+context:
+  project:
+    name: string
+    id: string
+  environment:
+    name: string
+    id: string
+  resource:
+    name: string
+    id: string
+```
+EOF
+  type        = map(any)
+  default     = {}
 }

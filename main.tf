@@ -45,3 +45,11 @@ resource "helm_release" "this" {
 # resource "kubernetes_manifest" "origin_ca" {
 #   manifest = yamldecode(file("${path.module}/value.yaml"))
 # }
+
+#
+# Walrus information
+#
+
+locals {
+  context = var.context
+}
