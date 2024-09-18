@@ -5,8 +5,6 @@ components:
   schemas:
     variables:
       type: object
-      required:
-      - namespace_name
       properties:
         crds_version:
           title: Crds Version
@@ -21,6 +19,7 @@ components:
           type: string
           description: The namespace where resources will be created, it have to be
             the same as cert-manager.
+          default: origin-ca
           x-walrus-ui:
             group: Basic
             order: 2

@@ -15,10 +15,16 @@ resource "null_resource" "crd_clusteroriginissuer" {
 }
 
 #
-# Origin CA Issuer 
+# Install Origin CA Issuer 
 #
 
-resource "helm_release" "this" {
+resource "kubernetes_namespace" "origin_ca" {
+  metadata {
+    name = var.namespace_name
+  }
+}
+
+resource "helm_release" "origin_ca" {
   name       = var.helm_release_name
   repository = "oci://ghcr.io/cloudflare/origin-ca-issuer-charts/"
   chart      = "origin-ca-issuer"

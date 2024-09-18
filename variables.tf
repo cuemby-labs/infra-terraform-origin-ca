@@ -15,6 +15,7 @@ variable "crds_version" {
 variable "namespace_name" {
   description = "The namespace where resources will be created, it have to be the same as cert-manager."
   type        = string
+  default     = "origin-ca"
 }
 
 variable "helm_release_name" {
