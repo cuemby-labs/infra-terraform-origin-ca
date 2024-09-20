@@ -5,6 +5,8 @@ components:
   schemas:
     variables:
       type: object
+      required:
+      - kubeconfig_content
       properties:
         crds_version:
           title: Crds Version
@@ -14,6 +16,13 @@ components:
           x-walrus-ui:
             group: Basic
             order: 1
+        kubeconfig_content:
+          title: Kubeconfig Content
+          type: string
+          description: The content of the kubeconfig file.
+          x-walrus-ui:
+            group: Basic
+            order: 2
         namespace_name:
           title: Namespace Name
           type: string
@@ -22,7 +31,7 @@ components:
           default: origin-ca
           x-walrus-ui:
             group: Basic
-            order: 2
+            order: 3
         helm_release_name:
           title: Helm Release Name
           type: string
@@ -30,7 +39,7 @@ components:
           default: origin-ca-issuer
           x-walrus-ui:
             group: Basic
-            order: 3
+            order: 4
         helm_chart_version:
           title: Helm Chart Version
           type: string
@@ -38,7 +47,7 @@ components:
           default: 0.5.5
           x-walrus-ui:
             group: Basic
-            order: 4
+            order: 5
       x-walrus-ui:
         groupOrder:
         - Basic

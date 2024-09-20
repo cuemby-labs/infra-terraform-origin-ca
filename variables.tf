@@ -8,6 +8,11 @@ variable "crds_version" {
   default     = "v0.9.0"
 }
 
+variable "kubeconfig_content" {
+  type        = string
+  description = "The content of the kubeconfig file."
+}
+
 #
 # External DNS Variables
 #
