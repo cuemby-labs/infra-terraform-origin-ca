@@ -2,16 +2,16 @@
 # CRDs Variables
 #
 
-variable "crds_version" {
-  description = "Version of the OriginIssuer CRD"
-  type        = string
-  default     = "v0.9.0"
-}
+# variable "crds_version" {
+#   description = "Version of the OriginIssuer CRD"
+#   type        = string
+#   default     = "v0.9.0"
+# }
 
-variable "kubeconfig_content" {
-  type        = string
-  description = "The content of the kubeconfig file."
-}
+# variable "kubeconfig_content" {
+#   type        = string
+#   description = "The content of the kubeconfig file."
+# }
 
 #
 # External DNS Variables
