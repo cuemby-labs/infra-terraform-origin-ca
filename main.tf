@@ -2,21 +2,21 @@
 # Install CRDs
 #
 
-resource "null_resource" "apply_crds" {
+# resource "null_resource" "apply_crds" {
 
-  provisioner "local-exec" {
-    # Primero, crea un archivo temporal con el contenido del kubeconfig
-    command = <<EOT
-      echo "${var.kubeconfig_content}" > /tmp/kubeconfig
-      KUBECONFIG=/tmp/kubeconfig kubectl apply -f https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml
-    EOT
-  }
+#   provisioner "local-exec" {
+#     # Primero, crea un archivo temporal con el contenido del kubeconfig
+#     command = <<EOT
+#       echo "${var.kubeconfig_content}" > /tmp/kubeconfig
+#       KUBECONFIG=/tmp/kubeconfig kubectl apply -f https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml
+#     EOT
+#   }
 
-  provisioner "local-exec" {
-    # Aplica el segundo CRD usando el mismo archivo temporal de kubeconfig
-    command = "KUBECONFIG=/tmp/kubeconfig kubectl apply -f https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
-  }
-}
+#   provisioner "local-exec" {
+#     # Aplica el segundo CRD usando el mismo archivo temporal de kubeconfig
+#     command = "KUBECONFIG=/tmp/kubeconfig kubectl apply -f https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
+#   }
+# }
 
 #
 # Install Origin CA Issuer 
