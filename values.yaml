@@ -1,3 +1,14 @@
-global
-  rbac
-    create = true
+global:
+  rbac:
+    create: true
+
+controller:
+  rbac:
+    clusterRole:
+      rules:
+        - apiGroups: ["cert-manager.io"]
+          resources: ["signers"]
+          verbs: ["approve"]
+          resourceNames:
+            - "originissuers.cert-manager.k8s.cloudflare.com/*"
+            - "clusteroriginissuers.cert-manager.k8s.cloudflare.com/*"

@@ -2,11 +2,11 @@
 # CRDs Variables
 #
 
-# variable "crds_version" {
-#   description = "Version of the OriginIssuer CRD"
-#   type        = string
-#   default     = "v0.9.0"
-# }
+variable "crds_version" {
+  description = "Version of the OriginIssuer CRD"
+  type        = string
+  default     = "v0.9.0"
+}
 
 # variable "kubeconfig_content" {
 #   type        = string
@@ -33,6 +33,13 @@ variable "helm_chart_version" {
   description = "The version of the Helm chart."
   type        = string
   default     = "0.5.5"
+}
+
+variable "key" {
+  description = "secret key for cloudflare"
+  type        = string
+  sensitive   = true
+  default     = ""
 }
 
 #
