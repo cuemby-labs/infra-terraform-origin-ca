@@ -2,46 +2,32 @@
 # Install CRDs
 #
 
-data "http" "origin_ca_crds" {
-  url = "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml"
-}
+# data "http" "origin_ca_crds" {
+#   url = "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml"
+# }
 
-data "kubectl_file_documents" "origin_ca_crds" {
-  content = data.http.origin_ca_crds.response_body
-}
+# data "kubectl_file_documents" "origin_ca_crds" {
+#   content = data.http.origin_ca_crds.response_body
+# }
 
-resource "kubectl_manifest" "install_origin_ca_crds" {
-  for_each   = data.kubectl_file_documents.origin_ca_crds.manifests
-  yaml_body  = each.value
-}
+# resource "kubectl_manifest" "install_origin_ca_crds" {
+#   for_each   = data.kubectl_file_documents.origin_ca_crds.manifests
+#   yaml_body  = each.value
+#   depends_on = [kubernetes_namespace.origin_ca]
+# }
 
-data "http" "origin_ca_cluster_crds" {
-  url = "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
-}
+# data "http" "origin_ca_cluster_crds" {
+#   url = "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
+# }
 
-data "kubectl_file_documents" "origin_ca_cluster_crds" {
-  content = data.http.origin_ca_cluster_crds.response_body
-}
+# data "kubectl_file_documents" "origin_ca_cluster_crds" {
+#   content = data.http.origin_ca_cluster_crds.response_body
+# }
 
-resource "kubectl_manifest" "install_origin_ca_cluster_crds" {
-  for_each   = data.kubectl_file_documents.origin_ca_cluster_crds.manifests
-  yaml_body  = each.value
-}
-
-# resource "null_resource" "apply_crds" {
-
-#   provisioner "local-exec" {
-#     # Primero, crea un archivo temporal con el contenido del kubeconfig
-#     command = <<EOT
-#       echo "${var.kubeconfig_content}" > /tmp/kubeconfig
-#       KUBECONFIG=/tmp/kubeconfig kubectl apply -f https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml
-#     EOT
-#   }
-
-#   provisioner "local-exec" {
-#     # Aplica el segundo CRD usando el mismo archivo temporal de kubeconfig
-#     command = "KUBECONFIG=/tmp/kubeconfig kubectl apply -f https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
-#   }
+# resource "kubectl_manifest" "install_origin_ca_cluster_crds" {
+#   for_each   = data.kubectl_file_documents.origin_ca_cluster_crds.manifests
+#   yaml_body  = each.value
+#   depends_on = [kubernetes_namespace.origin_ca]
 # }
 
 #
@@ -72,10 +58,10 @@ resource "helm_release" "origin_ca" {
 
   #   })
   # ]
-  depends_on = [
-    kubectl_manifest.install_origin_ca_crds,
-    kubectl_manifest.install_origin_ca_cluster_crds
-  ]
+  # depends_on = [
+  #   kubectl_manifest.install_origin_ca_crds,
+  #   kubectl_manifest.install_origin_ca_cluster_crds
+  # ]
 }
 
 # Crear el Secret
@@ -97,7 +83,6 @@ resource "kubernetes_manifest" "cluster_origin_issuer" {
     kind       = "ClusterOriginIssuer"
     metadata = {
       name      = var.helm_release_name
-      namespace = var.namespace_name
     }
     spec = {
       auth = {
@@ -110,10 +95,6 @@ resource "kubernetes_manifest" "cluster_origin_issuer" {
     }
   }
 }
-
-# resource "kubernetes_manifest" "origin_ca" {
-#   manifest = yamldecode(file("${path.module}/value.yaml"))
-# }
 
 #
 # Walrus information
