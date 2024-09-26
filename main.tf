@@ -7,7 +7,7 @@ data "http" "origin_ca_crds" {
 }
 
 data "kubectl_file_documents" "origin_ca_crds" {
-  content = data.http.origin_ca_crds.body
+  content = data.http.origin_ca_crds.response_body
 }
 
 resource "kubectl_manifest" "install_origin_ca_crds" {
@@ -20,7 +20,7 @@ data "http" "origin_ca_cluster_crds" {
 }
 
 data "kubectl_file_documents" "origin_ca_cluster_crds" {
-  content = data.http.origin_ca_cluster_crds.body
+  content = data.http.origin_ca_cluster_crds.response_body
 }
 
 resource "kubectl_manifest" "install_origin_ca_cluster_crds" {
