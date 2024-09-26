@@ -15,6 +15,19 @@ resource "kubectl_manifest" "install_origin_ca_crds" {
   yaml_body  = each.value
 }
 
+data "http" "origin_ca_cluster_crds" {
+  url = "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/${var.crds_version}/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
+}
+
+data "kubectl_file_documents" "origin_ca_cluster_crds" {
+  content = data.http.origin_ca_cluster_crds.body
+}
+
+resource "kubectl_manifest" "install_origin_ca_cluster_crds" {
+  for_each   = data.kubectl_file_documents.origin_ca_cluster_crds.manifests
+  yaml_body  = each.value
+}
+
 # resource "null_resource" "apply_crds" {
 
 #   provisioner "local-exec" {
@@ -59,6 +72,10 @@ resource "helm_release" "origin_ca" {
 
   #   })
   # ]
+  depends_on = [
+    kubectl_manifest.install_origin_ca_crds,
+    kubectl_manifest.install_cluster_origin_ca_crds
+  ]
 }
 
 # Crear el Secret
