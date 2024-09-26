@@ -61,10 +61,6 @@ resource "helm_release" "origin_ca" {
   # ]
 }
 
-provider "kubernetes" {
-  config_path = "~/.kube/config"  # Ruta al kubeconfig (personaliza si es necesario)
-}
-
 # Crear el Secret
 resource "kubernetes_secret" "origin_ca_issuer_secret" {
   metadata {
