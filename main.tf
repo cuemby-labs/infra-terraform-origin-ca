@@ -74,7 +74,7 @@ resource "helm_release" "origin_ca" {
   # ]
   depends_on = [
     kubectl_manifest.install_origin_ca_crds,
-    kubectl_manifest.install_cluster_origin_ca_crds
+    kubectl_manifest.install_origin_ca_cluster_crds
   ]
 }
 
