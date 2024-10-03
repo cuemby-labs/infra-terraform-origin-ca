@@ -12,14 +12,15 @@ data "template_file" "manifest_template" {
   }
 }
 
-# Decodificar el YAML en múltiples manifiestos usando manifest_decode_multi
-locals {
-  manifest_docs = provider::kubernetes::manifest_decode_multi(data.template_file.manifest_template.rendered)
+# Dividir el contenido del YAML en múltiples documentos (si corresponde)
+data "kubectl_file_documents" "manifest_files" {
+  content = data.template_file.manifest_template.rendered
 }
 
 # Aplicar los manifiestos usando kubectl
-resource "kubectl_manifest" "install_origin_ca" {
-  for_each  = { for index, doc in local.manifest_docs : index => doc }
+resource "kubectl_manifest" "apply_manifests" {
+  for_each  = { for index, doc in data.kubectl_file_documents.manifest_files.documents : index => doc }
 
-  yaml_body = yamlencode(each.value)
+  # Aplicar el manifiesto al cluster
+  yaml_body = each.value
 }
