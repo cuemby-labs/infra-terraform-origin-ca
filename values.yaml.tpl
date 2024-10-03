@@ -1,4 +1,3 @@
-# permissions to approve all cert-manager.k8s.cloudflare.com requests
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
