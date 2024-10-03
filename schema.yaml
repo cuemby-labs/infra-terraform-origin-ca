@@ -9,8 +9,7 @@ components:
         namespace_name:
           title: Namespace Name
           type: string
-          description: The namespace where resources will be created, it have to be
-            the same as cert-manager.
+          description: The namespace where resources will be created.
           default: origin-ca
           x-walrus-ui:
             group: Basic

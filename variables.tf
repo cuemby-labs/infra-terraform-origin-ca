@@ -3,7 +3,7 @@
 #
 
 variable "namespace_name" {
-  description = "The namespace where resources will be created, it have to be the same as cert-manager."
+  description = "The namespace where resources will be created."
   type        = string
   default     = "origin-ca"
 }
