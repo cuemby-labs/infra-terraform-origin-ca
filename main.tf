@@ -2,7 +2,12 @@ locals {
   context = var.context
 }
 
-# Cargar el archivo YAML local con variables
+resource "kubernetes_namespace" "origin_ca" {
+  metadata {
+    name = var.namespace_name
+  }
+}
+
 data "template_file" "manifest_template" {
   template = file("${path.module}/values.yaml.tpl")
   vars = {
@@ -12,15 +17,12 @@ data "template_file" "manifest_template" {
   }
 }
 
-# Dividir el contenido del YAML en múltiples documentos (si corresponde)
 data "kubectl_file_documents" "manifest_files" {
   content = data.template_file.manifest_template.rendered
 }
 
-# Aplicar los manifiestos usando kubectl
 resource "kubectl_manifest" "apply_manifests" {
   for_each  = { for index, doc in data.kubectl_file_documents.manifest_files.documents : index => doc }
 
-  # Aplicar el manifiesto al cluster
   yaml_body = each.value
 }
