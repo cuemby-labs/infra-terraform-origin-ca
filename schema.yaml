@@ -6,14 +6,6 @@ components:
     variables:
       type: object
       properties:
-        crds_version:
-          title: Crds Version
-          type: string
-          description: Version of the OriginIssuer CRD
-          default: v0.9.0
-          x-walrus-ui:
-            group: Basic
-            order: 1
         namespace_name:
           title: Namespace Name
           type: string
@@ -22,23 +14,15 @@ components:
           default: origin-ca
           x-walrus-ui:
             group: Basic
+            order: 1
+        image_version:
+          title: Image Version
+          type: string
+          description: origin-ca-issuer version.
+          default: cloudflare/origin-ca-issuer:v0.9.0
+          x-walrus-ui:
+            group: Basic
             order: 2
-        helm_release_name:
-          title: Helm Release Name
-          type: string
-          description: The name of the Helm release.
-          default: origin-ca-issuer
-          x-walrus-ui:
-            group: Basic
-            order: 3
-        helm_chart_version:
-          title: Helm Chart Version
-          type: string
-          description: The version of the Helm chart.
-          default: 0.5.5
-          x-walrus-ui:
-            group: Basic
-            order: 4
         key:
           title: Key
           type: string
@@ -48,7 +32,7 @@ components:
           writeOnly: true
           x-walrus-ui:
             group: Basic
-            order: 5
+            order: 3
       x-walrus-ui:
         groupOrder:
         - Basic

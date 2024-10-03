@@ -1,19 +1,4 @@
 #
-# CRDs Variables
-#
-
-variable "crds_version" {
-  description = "Version of the OriginIssuer CRD"
-  type        = string
-  default     = "v0.9.0"
-}
-
-# variable "kubeconfig_content" {
-#   type        = string
-#   description = "The content of the kubeconfig file."
-# }
-
-#
 # External DNS Variables
 #
 
@@ -23,16 +8,10 @@ variable "namespace_name" {
   default     = "origin-ca"
 }
 
-variable "helm_release_name" {
-  description = "The name of the Helm release."
+variable "image_version" {
+  description = "origin-ca-issuer version."
   type        = string
-  default     = "origin-ca-issuer"
-}
-
-variable "helm_chart_version" {
-  description = "The version of the Helm chart."
-  type        = string
-  default     = "0.5.5"
+  default     = "cloudflare/origin-ca-issuer:v0.9.0"
 }
 
 variable "key" {
