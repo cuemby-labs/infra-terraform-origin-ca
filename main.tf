@@ -19,8 +19,8 @@ data "kubectl_file_documents" "manifest_files" {
 
 # Aplicar los manifiestos usando kubectl
 resource "kubectl_manifest" "install_origin_ca" {
-  for_each  = { for key, doc in data.kubectl_file_documents.manifest_files : key => doc.documents }
+  for_each  = { for key, doc in data.kubectl_file_documents.manifest_files : key => doc }
   
   # Concatenar los documentos YAML en un solo string
-  yaml_body = join("\n---\n", each.value)
+  yaml_body = each.value
 }
