@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for Origin-CA template.
+  title: OpenAPI schema for Origin CA template .
 components:
   schemas:
     variables:
@@ -26,7 +26,7 @@ components:
           default: origin-ca
           x-walrus-ui:
             group: Basic
-            order: 1
+            order: 2
         image_version:
           title: Image Version
           type: string
@@ -34,7 +34,7 @@ components:
           default: cloudflare/origin-ca-issuer:v0.9.0
           x-walrus-ui:
             group: Basic
-            order: 2
+            order: 3
         key:
           title: Key
           type: string
@@ -44,7 +44,7 @@ components:
           writeOnly: true
           x-walrus-ui:
             group: Basic
-            order: 3
+            order: 4
       x-walrus-ui:
         groupOrder:
         - Basic
