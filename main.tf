@@ -2,11 +2,11 @@
 # Install CRDs
 #
 
-module "kubernetes_manifest" {
-  source = "github.com/cuemby-labs/infra-terraform-kubernetes-manifest?ref=v1.0.1"
+# module "kubernetes_manifest" {
+#   source = "github.com/cuemby-labs/infra-terraform-kubernetes-manifest?ref=v1.0.1"
 
-  manifests_urls = var.manifests_urls
-}
+#   manifests_urls = var.manifests_urls
+# }
 
 #
 # Origin CA Resources
@@ -19,7 +19,7 @@ resource "kubernetes_namespace" "origin_ca" {
 }
 
 data "template_file" "manifest_template" {
-  depends_on = [ module.kubernetes_manifest ]
+  # depends_on = [ module.kubernetes_manifest ]
   
   template = file("${path.module}/values.yaml.tpl")
   vars     = {
@@ -30,13 +30,13 @@ data "template_file" "manifest_template" {
 }
 
 data "kubectl_file_documents" "manifest_files" {
-  depends_on = [ module.kubernetes_manifest ]
+  # depends_on = [ module.kubernetes_manifest ]
 
   content = data.template_file.manifest_template.rendered
 }
 
 resource "kubectl_manifest" "apply_manifests" {
-  depends_on = [ module.kubernetes_manifest ]
+  # depends_on = [ module.kubernetes_manifest ]
 
   for_each  = { for index, doc in data.kubectl_file_documents.manifest_files.documents : index => doc }
 
