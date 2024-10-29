@@ -6,19 +6,19 @@ components:
     variables:
       type: object
       properties:
-        # manifests_urls:
-        #   title: Manifests Urls
-        #   type: array
-        #   description: URLs list from the raw manifests
-        #   default:
-        #   - https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml
-        #   - https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml
-        #   items:
-        #     type: string
-        #   x-walrus-ui:
-        #     colSpan: 12
-        #     group: Basic
-        #     order: 1
+        manifests_urls:
+          title: Manifests Urls
+          type: array
+          description: URLs list from the raw manifests
+          default:
+          - https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml
+          - https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml
+          items:
+            type: string
+          x-walrus-ui:
+            colSpan: 12
+            group: Basic
+            order: 1
         namespace_name:
           title: Namespace Name
           type: string
@@ -26,7 +26,7 @@ components:
           default: origin-ca
           x-walrus-ui:
             group: Basic
-            order: 1
+            order: 2
         image_version:
           title: Image Version
           type: string
@@ -34,7 +34,7 @@ components:
           default: cloudflare/origin-ca-issuer:v0.9.0
           x-walrus-ui:
             group: Basic
-            order: 2
+            order: 3
         key:
           title: Key
           type: string
@@ -44,7 +44,7 @@ components:
           writeOnly: true
           x-walrus-ui:
             group: Basic
-            order: 3
+            order: 4
       x-walrus-ui:
         groupOrder:
         - Basic
