@@ -1,4 +1,4 @@
-# Awesome Walrus Template
+# Origin-CA Template
 
 Terraform module which deploys Origin-CA on any kubernetes cluster.
 
@@ -8,10 +8,11 @@ Terraform module which deploys Origin-CA on any kubernetes cluster.
 module "origin_ca" {
   source = "./modules/origin-ca" # Path to the External-DNS module
 
-  namespace_name       = var.namespace_name       # The namespace where Origin-CA will be created
-  helm_release_name    = var.helm_release_name    # The name of the Helm release
-  helm_chart_version   = var.helm_chart_version   # The version of the Origin-CA Helm chart
-  crds_version         = var.crds_version         # Version of the OriginIssuer CRD
+  namespace_name     = var.namespace_name       # The namespace where Origin-CA will be created
+  helm_release_name  = var.helm_release_name    # The name of the Helm release
+  helm_chart_version = var.helm_chart_version   # The version of the Origin-CA Helm chart
+  crds_version       = var.crds_version         # Version of the OriginIssuer CRD
+  manifests_urls     = var.manifests_urls       # List of HTTP RAW URLs for kubernetes manifest
 }
 ```
 
@@ -26,6 +27,8 @@ Please read our [contributing guide](./docs/CONTRIBUTING.md) if you're intereste
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
+
+Previous Ingress-NGINX install needs the CRDs to be install before, you can use the [Walrus Kubernetes template](https://github.com/cuemby-labs/infra-terraform-kubernetes-manifest) or install them manualy from the [CloudFlare site](https://github.com/cloudflare/origin-ca-issuer/tree/trunk/deploy/crds)
 
 | Name | Version |
 |------|---------|
@@ -43,7 +46,9 @@ Please read our [contributing guide](./docs/CONTRIBUTING.md) if you're intereste
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="kubernetes_manifest"></a> [kubernetes_manifest](#module\_kubernetes_manifest) | "github.com/cuemby-labs/infra-terraform-kubernetes-manifest?ref=v1.0.1" | v1.0.1 |
 
 ## Resources
 

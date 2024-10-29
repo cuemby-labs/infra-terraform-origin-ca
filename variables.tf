@@ -1,5 +1,18 @@
 #
-# External DNS Variables
+# CRDs Variables
+#
+
+variable "manifests_urls" {
+  description = "URLs list from the raw manifests"
+  type        = list(string)
+  default     = [
+    "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml",
+    "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
+  ]
+}
+
+#
+# Origin CA Variables
 #
 
 variable "namespace_name" {

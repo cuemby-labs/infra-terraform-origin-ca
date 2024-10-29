@@ -1,11 +1,24 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for template .
+  title: OpenAPI schema for Origin-CA template.
 components:
   schemas:
     variables:
       type: object
       properties:
+        manifests_urls:
+          title: Manifests Urls
+          type: array
+          description: URLs list from the raw manifests
+          default:
+          - https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml
+          - https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml
+          items:
+            type: string
+          x-walrus-ui:
+            colSpan: 12
+            group: Basic
+            order: 1
         namespace_name:
           title: Namespace Name
           type: string
