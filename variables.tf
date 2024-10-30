@@ -28,7 +28,7 @@ variable "image_version" {
 }
 
 variable "key" {
-  description = "secret key for cloudflare"
+  description = "Secret key for cloudflare"
   type        = string
   sensitive   = true
   default     = ""

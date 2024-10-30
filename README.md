@@ -6,13 +6,12 @@ Terraform module which deploys Origin-CA on any kubernetes cluster.
 
 ```hcl
 module "origin_ca" {
-  source = "./modules/origin-ca" # Path to the External-DNS module
+  source          = "./modules/origin-ca"                   # Path to the External-DNS module
 
-  namespace_name     = var.namespace_name       # The namespace where Origin-CA will be created
-  helm_release_name  = var.helm_release_name    # The name of the Helm release
-  helm_chart_version = var.helm_chart_version   # The version of the Origin-CA Helm chart
-  crds_version       = var.crds_version         # Version of the OriginIssuer CRD
-  manifests_urls     = var.manifests_urls       # List of HTTP RAW URLs for kubernetes manifest
+  namespace_name  = "origin-ca"                             # The namespace where Origin-CA will be created
+  image_version   = "cloudflare/origin-ca-issuer:v0.9.0"    # origin-ca-issuer version.
+  key             = "secret key for cloudflare"             # secret key for cloudflare
+  manifests_urls  = [url1, url2]                            # List of HTTP RAW URLs for kubernetes manifest
 }
 ```
 
@@ -63,9 +62,12 @@ Previous Ingress-NGINX install needs the CRDs to be install before, you can use 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_namespace_name"></a> [namespace_name](#input_namespace_name) | Namespace where Origin-CA will be installed. | string | "origin-ca" | no |
-| <a name="input_helm_release_name"></a> [helm_release_name](#input_helm_release_name) | Name for the Origin-CA Helm release. | string | "origin-ca-issuer" | no |
-| <a name="input_helm_chart_version"></a> [helm_chart_version](#input_helm_chart_version) | Version of the Origin-CA Helm chart. | string | "0.5.5" | no |
-| <a name="input_crds_version"></a> [crds_version](#input_crds_version) | Version of the OriginIssuer CRD. | string | "v0.9.0" | yes |
+| <a name="input_image_version"></a> [image_version](#input_image_version) | origin-ca-issuer version. | string | "cloudflare/origin-ca-issuer:v0.9.0" | no |
+| <a name="input_key"></a> [key](#input_key) | Secret key for cloudflare. | string | "" | yes |
+| <a name="input_manifests_urls"></a> [manifests_urls](#input_manifests_urls) | URLs list from the raw manifests. | list(string) | '"[
+    "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml",
+    "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"'
+  ]" | yes |
 
 ## Outputs
 
