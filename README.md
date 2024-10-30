@@ -53,9 +53,10 @@ Previous Ingress-NGINX install needs the CRDs to be install before, you can use 
 
 | Name | Type |
 |------|------|
-| [null_resource.example](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [kubernetes_manifest.test](https://registry.terraform.io/providers/alekc/kubectl/latest/docs/resources/kubectl_manifest) | resource |
 | [kubernetes_namespace.example](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
-| [helm_release.example](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [template_file.init](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data |
+| [kubectl_file_documents.docs](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/data-sources/kubectl_file_documents) | data |
 
 ## Inputs
 
@@ -64,10 +65,7 @@ Previous Ingress-NGINX install needs the CRDs to be install before, you can use 
 | <a name="input_namespace_name"></a> [namespace_name](#input_namespace_name) | Namespace where Origin-CA will be installed. | string | "origin-ca" | no |
 | <a name="input_image_version"></a> [image_version](#input_image_version) | origin-ca-issuer version. | string | "cloudflare/origin-ca-issuer:v0.9.0" | no |
 | <a name="input_key"></a> [key](#input_key) | Secret key for cloudflare. | string | "" | yes |
-| <a name="input_manifests_urls"></a> [manifests_urls](#input_manifests_urls) | URLs list from the raw manifests. | list(string) | '"[
-    "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml",
-    "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"'
-  ]" | yes |
+| <a name="input_manifests_urls"></a> [manifests_urls](#input_manifests_urls) | URLs list from the raw manifests. | list(string) | '"[url1, url2]"' | yes |
 
 ## Outputs
 
