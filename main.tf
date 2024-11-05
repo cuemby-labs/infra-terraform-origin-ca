@@ -3,7 +3,7 @@
 #
 
 module "kubernetes_manifest" {
-  source = "modules/kubernetes-manifest"
+  source = "./modules/kubernetes_manifest"
 
   manifests_urls = var.manifests_urls
 }
