@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI schema for Kubernetes individual manifest list template .
+components:
+  schemas:
+    variables:
+      type: object
+      required:
+      - manifests_urls
+      properties:
+        manifests_urls:
+          title: Manifests Urls
+          type: array
+          description: URLs list from the raw manifests
+          items:
+            type: string
+          x-walrus-ui:
+            colSpan: 12
+            group: Basic
+            order: 2
+      x-walrus-ui:
+        groupOrder:
+        - Basic
