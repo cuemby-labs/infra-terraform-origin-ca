@@ -9,7 +9,7 @@ data "http" "manifest_url" {
 
 data "kubectl_file_documents" "manifest_files" {
   for_each = data.http.manifest_url
-  content  = each.value.rendered
+  content  = each.value.body
 }
 
 resource "kubectl_manifest" "install_manifest_files" {
