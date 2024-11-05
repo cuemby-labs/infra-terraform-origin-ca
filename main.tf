@@ -3,7 +3,7 @@
 #
 
 module "kubernetes_manifest" {
-  source = "github.com/cuemby-labs/infra-terraform-kubernetes-manifest?ref=v1.0.1"
+  source = "modules/kubernetes-manifest"
 
   manifests_urls = var.manifests_urls
 }
