@@ -18,30 +18,29 @@ resource "kubernetes_namespace" "origin_ca" {
   }
 }
 
-resource "helm_release" "origin_ca" {
-  name       = var.helm_release_name
-  repository = "oci://ghcr.io/cloudflare/origin-ca-issuer-charts/"
-  chart      = "origin-ca-issuer"
-  version    = var.helm_chart_version
-  namespace  = var.namespace_name
-
-  set {
-    name  = "global.rbac.create"
-    value = "true"
+data "template_file" "manifest_template" {
+  depends_on = [ module.kubernetes_manifest ]
+  
+  template = file("${path.module}/values.yaml.tpl")
+  vars     = {
+    namespace_name = var.namespace_name,
+    key            = var.key,
+    image_version  = var.image_version
   }
 }
 
-resource "kubernetes_secret" "origin_ca_issuer_secret" {
-  metadata {
-    name      = "origin-ca-issuer-secret"
-    namespace = var.namespace_name
-  }
+data "kubectl_file_documents" "manifest_files" {
+  depends_on = [ module.kubernetes_manifest ]
 
-  data = {
-    key = var.key
-  }
+  content = data.template_file.manifest_template.rendered
+}
 
-  type = "Opaque"
+resource "kubectl_manifest" "apply_manifests" {
+  depends_on = [ module.kubernetes_manifest ]
+
+  for_each  = data.kubectl_file_documents.manifest_files.manifests
+
+  yaml_body = each.value
 }
 
 #

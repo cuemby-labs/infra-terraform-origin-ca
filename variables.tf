@@ -21,6 +21,12 @@ variable "namespace_name" {
   default     = "origin-ca"
 }
 
+variable "image_version" {
+  description = "origin-ca-issuer version."
+  type        = string
+  default     = "cloudflare/origin-ca-issuer:v0.9.0"
+}
+
 variable "key" {
   description = "Secret key for cloudflare"
   type        = string
@@ -28,17 +34,6 @@ variable "key" {
   default     = ""
 }
 
-variable "helm_release_name" {
-  description = "The name of the Helm release."
-  type        = string
-  default     = "origin-ca-issuer"
-}
-
-variable "helm_chart_version" {
-  description = "The version of the Helm chart."
-  type        = string
-  default     = "0.5.5"
-}
 
 #
 # Walrus Contextual Fields Variable
