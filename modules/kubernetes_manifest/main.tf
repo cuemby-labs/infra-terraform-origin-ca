@@ -13,7 +13,7 @@ data "http" "manifests" {
 resource "kubectl_manifest" "apply_manifests" {
   for_each = data.http.manifests
 
-  yaml_body = yamldecode(each.value.body)
+  yaml_body = each.value.body
 }
 
 #
