@@ -8,7 +8,7 @@ data "http" "manifests" {
   url = each.value
 }
 
-resource "kubectl_manifest" "apply_manifests" {
+resource "kubectl_manifest" "install_crds" {
   for_each = data.http.manifests
 
   yaml_body = each.value.body
