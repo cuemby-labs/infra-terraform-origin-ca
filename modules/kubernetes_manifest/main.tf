@@ -5,7 +5,7 @@
 provider "http" {}
 
 data "http" "manifests" {
-  for_each = { for idx, url in var.manifests_urls : idx => url }
+  for_each = toset(var.manifests_urls)
 
   url = each.value
 }
