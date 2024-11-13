@@ -19,7 +19,6 @@ resource "kubernetes_namespace" "origin_ca" {
 }
 
 data "template_file" "manifest_template" {
-  depends_on = [ module.kubernetes_manifest ]
   
   template = file("${path.module}/values.yaml.tpl")
   vars     = {
@@ -30,12 +29,12 @@ data "template_file" "manifest_template" {
 }
 
 data "kubectl_file_documents" "manifest_files" {
-  depends_on = [ template_file.manifest_template ]
 
   content = data.template_file.manifest_template.rendered
 }
 
 resource "kubectl_manifest" "apply_manifests" {
+  depends_on = [ module.kubernetes_manifest ]
 
   for_each  = data.kubectl_file_documents.manifest_files.manifests
   yaml_body = each.value
