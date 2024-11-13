@@ -5,13 +5,15 @@
 provider "http" {}
 
 data "http" "manifests" {
-  for_each = toset(var.manifests_urls)
-  url      = each.value
+  for_each = { for idx, url in var.manifests_urls : idx => url }
+
+  url = each.value
 }
 
 resource "kubectl_manifest" "apply_manifests" {
-  for_each  = toset(var.manifests_urls)
-  yaml_body = yamldecode(data.http.manifests[each.value].body)
+  for_each = data.http.manifests
+
+  yaml_body = yamldecode(each.value.body)
 }
 
 #
