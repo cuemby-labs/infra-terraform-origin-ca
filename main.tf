@@ -30,16 +30,14 @@ data "template_file" "manifest_template" {
 }
 
 data "kubectl_file_documents" "manifest_files" {
-  depends_on = [ module.kubernetes_manifest ]
+  depends_on = [ template_file.manifest_template ]
 
   content = data.template_file.manifest_template.rendered
 }
 
 resource "kubectl_manifest" "apply_manifests" {
-  depends_on = [ module.kubernetes_manifest ]
 
   for_each  = data.kubectl_file_documents.manifest_files.manifests
-
   yaml_body = each.value
 }
 
