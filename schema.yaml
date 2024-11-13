@@ -27,24 +27,32 @@ components:
           x-walrus-ui:
             group: Basic
             order: 2
-        image_version:
-          title: Image Version
-          type: string
-          description: origin-ca-issuer version.
-          default: cloudflare/origin-ca-issuer:v0.9.0
-          x-walrus-ui:
-            group: Basic
-            order: 3
         key:
           title: Key
           type: string
-          description: secret key for cloudflare
+          description: Secret key for cloudflare
           default: ""
           format: password
           writeOnly: true
           x-walrus-ui:
             group: Basic
+            order: 3
+        helm_release_name:
+          title: Helm Release Name
+          type: string
+          description: The name of the Helm release.
+          default: origin-ca-issuer
+          x-walrus-ui:
+            group: Basic
             order: 4
+        helm_chart_version:
+          title: Helm Chart Version
+          type: string
+          description: The version of the Helm chart.
+          default: 0.5.5
+          x-walrus-ui:
+            group: Basic
+            order: 5
       x-walrus-ui:
         groupOrder:
         - Basic
