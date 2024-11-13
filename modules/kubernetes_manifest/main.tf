@@ -9,11 +9,11 @@ data "http" "manifest_url" {
 
 data "kubectl_file_documents" "manifest_files" {
   for_each = data.http.manifest_url
-  content  = each.value.rendered
+  content  = each.value.response_body
 }
 
 resource "kubectl_manifest" "install_manifest_files" {
-  for_each  = { for index, doc in data.kubectl_file_documents.manifest_files : index => doc }
+  for_each  = { for key, value in data.kubectl_file_documents.manifest_files : key => value }
   yaml_body = each.value
 }
 
