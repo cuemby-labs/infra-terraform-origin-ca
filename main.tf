@@ -29,19 +29,19 @@ data "template_file" "manifest_template" {
   }
 }
 
-data "kubectl_file_documents" "manifest_files" {
-  depends_on = [ module.kubernetes_manifest ]
+# data "kubectl_file_documents" "manifest_files" {
+#   depends_on = [ module.kubernetes_manifest ]
 
-  content = data.template_file.manifest_template.rendered
-}
+#   content = data.template_file.manifest_template.rendered
+# }
 
-resource "kubectl_manifest" "apply_manifests" {
-  depends_on = [ module.kubernetes_manifest ]
+# resource "kubectl_manifest" "apply_manifests" {
+#   depends_on = [ module.kubernetes_manifest ]
 
-  for_each  = { for index, doc in data.kubectl_file_documents.manifest_files.documents : index => doc }
+#   for_each  = { for index, doc in data.kubectl_file_documents.manifest_files.documents : index => doc }
 
-  yaml_body = each.value
-}
+#   yaml_body = each.value
+# }
 
 #
 # Walrus Information
