@@ -2,8 +2,6 @@
 # Manifests resoruces
 #
 
-provider "http" {}
-
 data "http" "manifests" {
   for_each = toset(var.manifests_urls)
 
