@@ -12,6 +12,17 @@ module "origin_ca" {
   image_version   = "cloudflare/origin-ca-issuer:v0.9.0"    # origin-ca-issuer version.
   key             = "secret key for cloudflare"             # secret key for cloudflare
   manifests_urls  = [url1, url2]                            # List of HTTP RAW URLs for kubernetes manifest
+
+  resources = {
+    limits = {
+      cpu    = "1"
+      memory = "512Mi"
+    }
+    requests = {
+      cpu    = "1"
+      memory = "512Mi"
+    }
+  }
 }
 ```
 
@@ -66,6 +77,7 @@ Previous Ingress-NGINX install needs the CRDs to be install before, you can use 
 | <a name="input_image_version"></a> [image_version](#input_image_version) | origin-ca-issuer version. | string | "cloudflare/origin-ca-issuer:v0.9.0" | no |
 | <a name="input_key"></a> [key](#input_key) | Secret key for cloudflare. | string | "" | yes |
 | <a name="input_manifests_urls"></a> [manifests_urls](#input_manifests_urls) | URLs list from the raw manifests. | list(string) | '"[url1, url2]"' | yes |
+| <a name="input_resources"></a> [resources](#input_resources) | Resource limits and requests for Cert-Manager pods. | `map(map(string))` | `"See example"` | no |
 
 ## Outputs
 

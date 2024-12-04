@@ -24,7 +24,11 @@ data "template_file" "manifest_template" {
   vars     = {
     namespace_name = var.namespace_name,
     key            = var.key,
-    image_version  = var.image_version
+    image_version  = var.image_version,
+    request_memory = var.resources["requests"]["memory"],
+    limits_memory  = var.resources["limits"]["memory"],
+    request_cpu    = var.resources["requests"]["cpu"],
+    limits_cpu     = var.resources["limits"]["cpu"]
   }
 }
 

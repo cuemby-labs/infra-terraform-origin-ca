@@ -9,3 +9,8 @@ plugin "opa" {
   version = "0.5.0"
   source  = "github.com/terraform-linters/tflint-ruleset-opa"
 }
+
+rule "terraform_unused_declarations" {
+  enabled = true
+  ignore_variables = ["resources"]
+}

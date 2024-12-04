@@ -139,11 +139,11 @@ spec:
                   fieldPath: metadata.namespace
           resources:
             limits:
-              cpu: "1"
-              memory: 512Mi
+              cpu: ${limits_cpu}
+              memory: ${limits_memory}
             requests:
-              cpu: "1"
-              memory: 512Mi
+              cpu: ${request_cpu}
+              memory: ${request_memory}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

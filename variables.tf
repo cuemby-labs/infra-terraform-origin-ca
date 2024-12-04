@@ -5,7 +5,8 @@
 variable "manifests_urls" {
   description = "URLs list from the raw manifests"
   type        = list(string)
-  default     = [
+
+  default = [
     "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_originissuers.yaml",
     "https://raw.githubusercontent.com/cloudflare/origin-ca-issuer/refs/heads/trunk/deploy/crds/cert-manager.k8s.cloudflare.com_clusteroriginissuers.yaml"
   ]
@@ -34,6 +35,21 @@ variable "key" {
   default     = ""
 }
 
+variable "resources" {
+  description = "Resource limits and requests for the Origin-CA Helm release."
+  type        = map(map(string))
+
+  default = {
+    limits = {
+      cpu    = "1000m"
+      memory = "512Mi"
+    }
+    requests = {
+      cpu    = "1000m"
+      memory = "512Mi"
+    }
+  }
+}
 
 #
 # Walrus Contextual Fields Variable
