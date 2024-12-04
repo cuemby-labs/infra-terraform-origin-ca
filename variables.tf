@@ -34,6 +34,20 @@ variable "key" {
   default     = ""
 }
 
+variable "resources" {
+  type = map(map(string))
+  default = {
+    limits = {
+      cpu    = "1000m"
+      memory = "512Mi"
+    }
+    requests = {
+      cpu    = "1000m"
+      memory = "512Mi"
+    }
+  }
+  description = "Resource limits and requests for the Origin-CA Helm release."
+}
 
 #
 # Walrus Contextual Fields Variable
