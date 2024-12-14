@@ -45,6 +45,32 @@ resource "kubectl_manifest" "apply_manifests" {
 }
 
 #
+# HPA
+#
+
+data "template_file" "hpa_manifest_template" {
+  
+  template = file("${path.module}/hpa.yaml.tpl")
+  vars     = {
+    namespace_name            = var.namespace_name,
+    min_replicas              = var.hpa_config.min_replicas,
+    max_replicas              = var.hpa_config.max_replicas,
+    target_cpu_utilization    = var.hpa_config.target_cpu_utilization,
+    target_memory_utilization = var.hpa_config.target_memory_utilization
+  }
+}
+
+data "kubectl_file_documents" "hpa_manifest_files" {
+
+  content = data.template_file.hpa_manifest_template.rendered
+}
+
+resource "kubectl_manifest" "apply_hpa_manifests" {
+  for_each  = data.kubectl_file_documents.hpa_manifest_files.manifests
+  yaml_body = each.value
+}
+
+#
 # Walrus Information
 #
 
