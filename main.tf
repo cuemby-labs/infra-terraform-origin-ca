@@ -19,7 +19,6 @@ resource "kubernetes_namespace" "origin_ca" {
 }
 
 data "template_file" "manifest_template" {
-  
   template = file("${path.module}/values.yaml.tpl")
   vars     = {
     namespace_name = var.namespace_name,
@@ -33,7 +32,6 @@ data "template_file" "manifest_template" {
 }
 
 data "kubectl_file_documents" "manifest_files" {
-
   content = data.template_file.manifest_template.rendered
 }
 
@@ -49,7 +47,6 @@ resource "kubectl_manifest" "apply_manifests" {
 #
 
 data "template_file" "hpa_manifest_template" {
-  
   template = file("${path.module}/hpa.yaml.tpl")
   vars     = {
     namespace_name            = var.namespace_name,
@@ -61,13 +58,18 @@ data "template_file" "hpa_manifest_template" {
 }
 
 data "kubectl_file_documents" "hpa_manifest_files" {
-
   content = data.template_file.hpa_manifest_template.rendered
 }
 
 resource "kubectl_manifest" "apply_hpa_manifests" {
   for_each  = data.kubectl_file_documents.hpa_manifest_files.manifests
   yaml_body = each.value
+
+  lifecycle {
+    ignore_changes = [yaml_body]
+  }
+
+  depends_on = [data.kubectl_file_documents.hpa_manifest_files]
 }
 
 #
